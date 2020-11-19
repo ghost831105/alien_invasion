@@ -1,0 +1,7 @@
+# 檔案名稱 .gitignore
+
+# 忽略 __pycache__資料夾下的檔案
+__pycache__/
+
+# 忽略 manual 資料夾下的檔案
+manual/
