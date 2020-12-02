@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 25 17:14:01 2020
-
-@author: ghost
-"""
 import pygame
 from pygame.sprite import Sprite
 

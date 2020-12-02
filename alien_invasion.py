@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 18 15:21:21 2020
-
-@author: ghost
-
-work: alien_invasion
-"""
+"""work: alien_invasion"""
 import pygame # 開發遊戲
 from pygame.sprite import Group
 
-from settings import Settings 
+from settings import Settings
+from button import Button
+from game_stats import GameStats
 from ship import Ship
-from alien import Alien
 import game_functions as gf
 
 def run_game():
@@ -22,6 +17,12 @@ def run_game():
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Alien Invasion") # 建立顯示視窗的標題 (遊戲名稱)
     
+    # Make the Play button
+    play_button = Button(ai_settings, screen, "Play")
+    
+    # Creat an instance to store game statistics.
+    stats = GameStats(ai_settings)
+    
     # Make the ship.
     ship = Ship(ai_settings, screen)
     
@@ -29,17 +30,22 @@ def run_game():
     bullets = Group()
     aliens = Group()
     
-    
+    # Make a alien or make aliens.
     #alien = Alien(ai_settings, screen) # Make the alien.
     gf.creat_fleet(ai_settings, screen, ship, aliens) # Make the aliens.
     
+    
     # Start the main loop for the game
     while True:
-        gf.check_events(ai_settings, screen, ship, bullets)
-        ship.update()
-        gf.update_bullets(aliens, bullets)
-        gf.update_aliens(ai_settings, aliens)
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
-        
+        gf.check_events(ai_settings, screen, stats, ship, aliens, bullets,
+                        play_button)
+        if stats.game_active:
+            ship.update()
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats, ship, aliens, bullets)
+            
+        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets,
+                         play_button)
+            
 
 run_game()

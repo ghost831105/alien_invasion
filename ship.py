@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 25 13:33:34 2020
-
-@author: ghost
-"""
 import pygame
 
 class Ship():
@@ -53,4 +48,16 @@ class Ship():
     def blitme(self):
         """Draw the ship at its current location. """
         self.screen.blit(self.image, self.rect) 
-          
+        
+    def center_ship(self):
+        """Center the ship on the screen."""
+        # reset the ship to center
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.bottom = self.screen_rect.bottom
+        # reset center position of ship
+        # 若沒重置centerx,centery，在ship.update()會使用到舊的位置
+        self.centerx = self.rect.centerx
+        self.centery = self.rect.centery
+     
+       
+        
